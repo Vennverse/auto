@@ -13,6 +13,7 @@ import {
   chatConversations,
   chatMessages,
   emailVerificationTokens,
+  companyEmailVerifications,
   passwordResetTokens,
   testTemplates,
   testAssignments,
@@ -50,6 +51,8 @@ import {
   type InsertChatMessage,
   type EmailVerificationToken,
   type InsertEmailVerificationToken,
+  type CompanyEmailVerification,
+  type InsertCompanyEmailVerification,
   type PasswordResetToken,
   type InsertPasswordResetToken,
   type TestTemplate,
@@ -952,6 +955,44 @@ export class DatabaseStorage implements IStorage {
         .returning();
       return user;
     });
+  }
+
+  // Company Email Verification methods
+  async createCompanyEmailVerification(verificationData: InsertCompanyEmailVerification): Promise<CompanyEmailVerification> {
+    return await handleDbOperation(async () => {
+      const [verification] = await db.insert(companyEmailVerifications).values(verificationData).returning();
+      return verification;
+    });
+  }
+
+  async getCompanyEmailVerification(token: string): Promise<CompanyEmailVerification | undefined> {
+    return await handleDbOperation(async () => {
+      const [verification] = await db.select().from(companyEmailVerifications)
+        .where(eq(companyEmailVerifications.verificationToken, token));
+      return verification;
+    });
+  }
+
+  async verifyCompanyEmail(token: string): Promise<CompanyEmailVerification> {
+    return await handleDbOperation(async () => {
+      const [verification] = await db
+        .update(companyEmailVerifications)
+        .set({ 
+          isVerified: true, 
+          verifiedAt: new Date() 
+        })
+        .where(eq(companyEmailVerifications.verificationToken, token))
+        .returning();
+      return verification;
+    });
+  }
+
+  async getCompanyEmailVerificationByUserId(userId: string): Promise<CompanyEmailVerification[]> {
+    return await handleDbOperation(async () => {
+      return await db.select().from(companyEmailVerifications)
+        .where(eq(companyEmailVerifications.userId, userId))
+        .orderBy(desc(companyEmailVerifications.createdAt));
+    }, []);
   }
 
   // Test system operations

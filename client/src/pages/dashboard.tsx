@@ -7,6 +7,7 @@ import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest } from "@/lib/queryClient";
 import { Navbar } from "@/components/navbar";
 import { RecruiterNavbar } from "@/components/RecruiterNavbar";
+import { CompanyEmailVerification } from "@/components/CompanyEmailVerification";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -423,6 +424,16 @@ export default function Dashboard() {
             </div>
           </div>
         </motion.div>
+
+        {/* Company Email Verification Card for Job Seekers */}
+        {user?.userType === 'job_seeker' && (
+          <motion.div 
+            className="mb-8"
+            variants={itemVariants}
+          >
+            <CompanyEmailVerification user={user} />
+          </motion.div>
+        )}
 
         {/* Core Action Cards */}
         <motion.div 

@@ -1607,6 +1607,31 @@ Additional Information:
     }
   });
 
+  // Get company verification status for current user
+  app.get('/api/user/company-verification-status', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.id;
+      
+      // Get latest company email verification attempts
+      const verifications = await storage.getCompanyEmailVerificationByUserId(userId);
+      
+      res.json({
+        hasVerifications: verifications.length > 0,
+        verifications: verifications.map(v => ({
+          id: v.id,
+          email: v.email,
+          companyName: v.companyName,
+          isVerified: v.isVerified,
+          verifiedAt: v.verifiedAt,
+          createdAt: v.createdAt
+        }))
+      });
+    } catch (error) {
+      console.error("Error fetching company verification status:", error);
+      res.status(500).json({ message: "Failed to fetch verification status" });
+    }
+  });
+
   // Get user roles and current role
   app.get('/api/user/roles', isAuthenticated, async (req: any, res) => {
     try {

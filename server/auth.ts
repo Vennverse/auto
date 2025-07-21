@@ -868,6 +868,114 @@ export async function setupAuth(app: Express) {
     }
   });
 
+  // Company email verification for existing users
+  app.post('/api/auth/verify-company-email', async (req, res) => {
+    try {
+      const { companyEmail, companyName, companyWebsite } = req.body;
+      const userId = (req as any).session?.user?.id;
+
+      if (!userId) {
+        return res.status(401).json({ message: 'Please log in first' });
+      }
+
+      if (!companyEmail || !companyName) {
+        return res.status(400).json({ message: 'Company email and company name are required' });
+      }
+
+      // Check if it's actually a company email
+      if (!isCompanyEmail(companyEmail)) {
+        return res.status(400).json({ message: 'Please provide a company email address (not Gmail, Yahoo, etc.)' });
+      }
+
+      // Check if email is already in use
+      const [existingUser] = await db.select().from(users).where(eq(users.email, companyEmail));
+      if (existingUser && existingUser.id !== userId) {
+        return res.status(409).json({ message: 'This email is already registered to another account' });
+      }
+
+      // Generate verification token
+      const token = crypto.randomUUID();
+      const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+      // Create company email verification record
+      await storage.createCompanyEmailVerification({
+        userId,
+        email: companyEmail,
+        companyName,
+        companyWebsite: companyWebsite || null,
+        verificationToken: token,
+        isVerified: false,
+        expiresAt
+      });
+
+      // Send verification email
+      const emailHtml = generateVerificationEmail(token, companyName, 'recruiter');
+      const emailSent = await sendEmail({
+        to: companyEmail,
+        subject: 'Verify Your Company Email - AutoJobr Recruiter Access',
+        html: emailHtml,
+      });
+
+      if (emailSent) {
+        res.json({ 
+          message: `Verification email sent to ${companyEmail}. Once verified, you'll get recruiter access.`,
+          email: companyEmail
+        });
+      } else {
+        res.status(500).json({ message: 'Failed to send verification email' });
+      }
+    } catch (error) {
+      console.error('Company email verification error:', error);
+      res.status(500).json({ message: 'Failed to initiate company email verification' });
+    }
+  });
+
+  // Company email verification confirmation
+  app.get('/api/auth/verify-company-email/:token', async (req, res) => {
+    try {
+      const { token } = req.params;
+
+      if (!token) {
+        return res.status(400).json({ message: 'Verification token is required' });
+      }
+
+      // Get verification record
+      const verification = await storage.getCompanyEmailVerification(token);
+      
+      if (!verification || verification.expiresAt < new Date()) {
+        return res.status(400).json({ message: 'Invalid or expired verification token' });
+      }
+
+      if (verification.isVerified) {
+        return res.status(400).json({ message: 'Email already verified' });
+      }
+
+      // Mark as verified
+      await storage.verifyCompanyEmail(token);
+
+      // Update user to recruiter
+      const user = await storage.getUser(verification.userId);
+      if (user) {
+        await storage.upsertUser({
+          ...user,
+          userType: 'recruiter',
+          companyName: verification.companyName,
+          companyWebsite: verification.companyWebsite || user.companyWebsite,
+          emailVerified: true
+        });
+
+        // Update session if user is logged in
+        const baseUrl = process.env.REPLIT_DOMAINS ? `https://${process.env.REPLIT_DOMAINS}` : 'http://localhost:5000';
+        res.redirect(`${baseUrl}/?recruiter-verified=true`);
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      console.error('Company email verification confirmation error:', error);
+      res.status(500).json({ message: 'Failed to verify company email' });
+    }
+  });
+
   // Resend verification email
   app.post('/api/auth/resend-verification', async (req, res) => {
     try {

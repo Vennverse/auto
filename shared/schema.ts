@@ -1575,6 +1575,11 @@ export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertEmailVerificationToken = z.infer<typeof insertEmailVerificationTokenSchema>;
 export type EmailVerificationToken = typeof emailVerificationTokens.$inferSelect;
+
+// Company email verification schemas
+export const insertCompanyEmailVerificationSchema = createInsertSchema(companyEmailVerifications);
+export type InsertCompanyEmailVerification = z.infer<typeof insertCompanyEmailVerificationSchema>;
+export type CompanyEmailVerification = typeof companyEmailVerifications.$inferSelect;
 export type InsertPasswordResetToken = z.infer<typeof insertPasswordResetTokenSchema>;
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
 
