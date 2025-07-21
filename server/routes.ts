@@ -639,7 +639,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Auth routes - consolidated (duplicate routes removed)
   app.get('/api/user', isAuthenticated, asyncHandler(async (req: any, res: any) => {
-    res.json(req.user);
+    try {
+      // Get full user data from database
+      const fullUser = await storage.getUser(req.user.id);
+      if (!fullUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Return comprehensive user data
+      res.json({
+        id: fullUser.id,
+        email: fullUser.email,
+        firstName: fullUser.firstName,
+        lastName: fullUser.lastName,
+        name: fullUser.userType === 'recruiter' 
+          ? (fullUser.companyName || 'Recruiter')
+          : `${fullUser.firstName || ''} ${fullUser.lastName || ''}`.trim(),
+        userType: fullUser.userType,
+        onboardingCompleted: fullUser.onboardingCompleted,
+        emailVerified: fullUser.emailVerified,
+        planType: fullUser.planType || 'free',
+        companyName: fullUser.companyName,
+        companyWebsite: fullUser.companyWebsite,
+        profileImageUrl: fullUser.profileImageUrl
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      res.status(500).json({ message: "Failed to fetch user data" });
+    }
   }));
 
   // User activity tracking for online/offline status
