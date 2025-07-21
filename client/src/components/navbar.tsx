@@ -14,6 +14,7 @@ export function Navbar() {
   const { theme, setTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -54,6 +55,7 @@ export function Navbar() {
         { href: "/", label: "Dashboard", icon: BarChart3 },
         { href: "/applications", label: "Applications", icon: FileText },
         { href: "/jobs", label: "Jobs", icon: Briefcase },
+        { href: "/recruiter/dashboard", label: "Post a Job", icon: Plus },
         { href: "/job-seeker-tests", label: "Tests", icon: FileText },
         { href: "/ranking-tests", label: "Rankings", icon: Trophy },
         { href: "/mock-interview", label: "Practice", icon: Code },
@@ -107,29 +109,47 @@ export function Navbar() {
           </div>
           
           <div className="flex items-center space-x-3">
-            {/* Search - only show on larger screens for job seekers */}
+            {/* Search icon - only show for job seekers */}
             {user && user?.userType !== 'recruiter' && (
-              <div className="hidden lg:flex relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search jobs..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-1.5 w-64 text-sm border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && searchQuery.trim()) {
-                      window.location.href = `/jobs?search=${encodeURIComponent(searchQuery.trim())}`;
-                    }
-                  }}
-                />
+              <div className="relative">
+                {!showSearch ? (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setShowSearch(true)}
+                    className="hidden sm:flex"
+                  >
+                    <Search className="h-4 w-4" />
+                    <span className="sr-only">Search jobs</span>
+                  </Button>
+                ) : (
+                  <div className="hidden sm:flex relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <input
+                      type="text"
+                      placeholder="Search jobs..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10 pr-4 py-1.5 w-64 text-sm border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      autoFocus
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && searchQuery.trim()) {
+                          window.location.href = `/jobs?search=${encodeURIComponent(searchQuery.trim())}`;
+                        } else if (e.key === 'Escape') {
+                          setShowSearch(false);
+                          setSearchQuery("");
+                        }
+                      }}
+                      onBlur={() => {
+                        if (!searchQuery.trim()) {
+                          setShowSearch(false);
+                        }
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             )}
-
-
-
-
-
 
             {/* Theme toggle */}
             <Button
