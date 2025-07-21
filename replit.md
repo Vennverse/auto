@@ -33,6 +33,9 @@ AutoJobr is a comprehensive AI-powered job platform serving both job seekers and
 - ✅ Added dual dashboard access for recruiters (recruiter + user dashboards)
 - ✅ Enhanced RecruiterNavbar with navigation between recruiter and user views
 - ✅ Unified authentication flow for all recruiters
+- ✅ Implemented automatic user type detection based on company email domains
+- ✅ Auto-upgrade existing job_seekers with company emails to recruiter status
+- ✅ Added company name extraction from email domains
 
 ## Key Features
 - Resume upload and ATS optimization

@@ -9,6 +9,33 @@ import type { Express, RequestHandler } from "express";
 import { sendEmail, generatePasswordResetEmail, generateVerificationEmail } from "./emailService";
 import crypto from "crypto";
 
+// Company email domain detection utility
+function isCompanyEmail(email: string): boolean {
+  const personalDomains = [
+    'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com',
+    'protonmail.com', 'aol.com', 'live.com', 'msn.com', 'rediffmail.com',
+    'zoho.com', 'yandex.com', 'mail.com', 'gmx.com', 'fastmail.com'
+  ];
+  
+  const domain = email.split('@')[1]?.toLowerCase();
+  return domain && !personalDomains.includes(domain);
+}
+
+// Extract company name from email domain
+function extractCompanyFromEmail(email: string): string | null {
+  const domain = email.split('@')[1]?.toLowerCase();
+  if (!domain || !isCompanyEmail(email)) return null;
+  
+  // Remove common TLD and return formatted company name
+  const companyName = domain.split('.')[0];
+  return companyName.charAt(0).toUpperCase() + companyName.slice(1);
+}
+
+// Automatically determine user type based on email
+function determineUserType(email: string): 'job_seeker' | 'recruiter' {
+  return isCompanyEmail(email) ? 'recruiter' : 'job_seeker';
+}
+
 // Simple auth configuration
 const authConfig = {
   session: {
@@ -219,6 +246,10 @@ export async function setupAuth(app: Express) {
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      // Automatically determine user type based on email domain
+      const userType = determineUserType(email);
+      const companyName = userType === 'recruiter' ? extractCompanyFromEmail(email) : null;
+      
       // Create new user (not verified yet)
       const userId = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       const newUser = await storage.upsertUser({
@@ -227,10 +258,10 @@ export async function setupAuth(app: Express) {
         firstName,
         lastName,
         password: hashedPassword,
-        userType: 'job_seeker',
+        userType,
         emailVerified: false, // User needs to verify email
         profileImageUrl: null,
-        companyName: null,
+        companyName,
         companyWebsite: null
       });
 
@@ -252,7 +283,7 @@ export async function setupAuth(app: Express) {
       try {
         const { sendEmail, generateVerificationEmail } = await import('./emailService');
         const userName = firstName ? `${firstName}${lastName ? ' ' + lastName : ''}` : 'User';
-        const emailHtml = generateVerificationEmail(verificationToken, userName, 'job_seeker');
+        const emailHtml = generateVerificationEmail(verificationToken, userName, userType);
         
         await sendEmail({
           to: email,
@@ -298,6 +329,18 @@ export async function setupAuth(app: Express) {
       const isValidPassword = await bcrypt.compare(password, user.password);
       if (!isValidPassword) {
         return res.status(401).json({ message: 'Invalid email or password' });
+      }
+
+      // Auto-upgrade user type if they have a company email but are marked as job_seeker
+      if (user.userType === 'job_seeker' && isCompanyEmail(user.email)) {
+        const companyName = extractCompanyFromEmail(user.email);
+        await storage.upsertUser({
+          ...user,
+          userType: 'recruiter',
+          companyName: companyName || user.companyName
+        });
+        user.userType = 'recruiter';
+        user.companyName = companyName || user.companyName;
       }
 
       // Check if email is verified (only for email signup users)
@@ -732,16 +775,20 @@ export async function setupAuth(app: Express) {
         const firstName = linkedinUser.firstName?.localized?.en_US || 'User';
         const lastName = linkedinUser.lastName?.localized?.en_US || '';
         
+        // Automatically determine user type based on email domain
+        const userType = determineUserType(email);
+        const companyName = userType === 'recruiter' ? extractCompanyFromEmail(email) : null;
+        
         user = await storage.upsertUser({
           id: userId,
           email: email,
           firstName: firstName,
           lastName: lastName,
           password: null,
-          userType: 'job_seeker',
+          userType,
           emailVerified: true,
           profileImageUrl: linkedinUser.profilePicture?.displayImage?.['~']?.elements?.[0]?.identifiers?.[0]?.identifier,
-          companyName: null,
+          companyName,
           companyWebsite: null
         });
       }
