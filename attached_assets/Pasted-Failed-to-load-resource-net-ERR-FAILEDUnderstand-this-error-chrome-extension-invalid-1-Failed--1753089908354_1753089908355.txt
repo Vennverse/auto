@@ -1,0 +1,44 @@
+Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+smart-detector.js:247 🔍 Detected platform: linkedin
+smart-detector.js:251 ✅ Job page detected on linkedin
+smart-detector.js:92 🔍 Checking AutoJobr authentication...
+recommended/:1 Access to fetch at 'https://c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user' from origin 'https://www.linkedin.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+smart-detector.js:116 ❌ AutoJobr authentication check failed: TypeError: Failed to fetch
+    at SmartJobDetector.checkAuthentication (smart-detector.js:93:30)
+    at SmartJobDetector.detectJobPage (smart-detector.js:254:18)
+    at smart-detector.js:75:12
+smart-detector.js:307 📋 Job data extracted: Object
+smart-detector.js:608 💫 AutoJobr floating panel displayed
+Grammarly-check.js:1 [Violation] Permissions policy violation: unload is not allowed in this document.
+(anonymous) @ Grammarly-check.js:1Understand this error
+10Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('<URL>') does not match the recipient window's origin ('null').Understand this warning
+inpage.js:1 Uncaught (in promise) s: Failed to connect to MetaMask
+    at Object.connect (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:21277)
+    at async o (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:19192)Caused by: Error: MetaMask extension not found
+    at inpage.js:1:16512Understand this error
+smart-detector.js:92 🔍 Checking AutoJobr authentication...
+recommended/:1 Access to fetch at 'https://c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user' from origin 'https://www.linkedin.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+smart-detector.js:116 ❌ AutoJobr authentication check failed: TypeError: Failed to fetch
+    at SmartJobDetector.checkAuthentication (smart-detector.js:93:30)
+    at smart-detector.js:1063:18
+858 log entries are not shown.Understand this warning
+smart-detector.js:92 🔍 Checking AutoJobr authentication...
+recommended/:1 Access to fetch at 'https://c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user' from origin 'https://www.linkedin.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+smart-detector.js:93  GET https://c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user net::ERR_FAILED
+checkAuthentication @ smart-detector.js:93
+(anonymous) @ smart-detector.js:1063Understand this error
+smart-detector.js:116 ❌ AutoJobr authentication check failed: TypeError: Failed to fetch
+    at SmartJobDetector.checkAuthentication (smart-detector.js:93:30)
+    at smart-detector.js:1063:18
+smart-detector.js:92 🔍 Checking AutoJobr authentication...
+recommended/:1 Access to fetch at 'https://c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user' from origin 'https://www.linkedin.com' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+smart-detector.js:93  GET https://c42866db-f9f2-4ab5-a577-bd953424dd9a-00-3nwibc7ed4mhh.worf.replit.dev/api/user net::ERR_FAILED
+checkAuthentication @ smart-detector.js:93
+(anonymous) @ smart-detector.js:1063Understand this error
+smart-detector.js:116 ❌ AutoJobr authentication check failed: TypeError: Failed to fetch
+    at SmartJobDetector.checkAuthentication (smart-detector.js:93:30)
+    at smart-detector.js:1063:18

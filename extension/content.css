@@ -1,0 +1,411 @@
+/* AutoJobr Extension Content Styles */
+
+/* Reset and base styles for extension elements */
+.autojobr-widget * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main floating widget */
+.autojobr-floating-widget {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  z-index: 999999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.autojobr-floating-widget.minimized {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Header */
+.autojobr-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.autojobr-logo {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.autojobr-logo::before {
+  content: "⚡";
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.autojobr-minimize-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.autojobr-minimize-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Content */
+.autojobr-content {
+  padding: 20px;
+}
+
+.autojobr-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.autojobr-status-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.autojobr-status-icon.connected {
+  background-color: #4ade80;
+}
+
+.autojobr-status-icon.disconnected {
+  background-color: #f87171;
+}
+
+.autojobr-status-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Profile section */
+.autojobr-profile {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.autojobr-profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.autojobr-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4ade80, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 12px;
+}
+
+.autojobr-profile-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.autojobr-profile-info p {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Job analysis */
+.autojobr-job-analysis {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.autojobr-analysis-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.autojobr-analysis-header::before {
+  content: "📊";
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.autojobr-match-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.autojobr-score-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.autojobr-score-high {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+}
+
+.autojobr-score-medium {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.autojobr-score-low {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+}
+
+/* Action buttons */
+.autojobr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.autojobr-btn {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.autojobr-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+}
+
+.autojobr-btn:active {
+  transform: translateY(0);
+}
+
+.autojobr-btn.secondary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.autojobr-btn.secondary:hover {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.autojobr-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.autojobr-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading spinner */
+.autojobr-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: autojobr-spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes autojobr-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Settings panel */
+.autojobr-settings {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.autojobr-setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.autojobr-setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.autojobr-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.autojobr-toggle.active {
+  background: #4ade80;
+}
+
+.autojobr-toggle::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.autojobr-toggle.active::before {
+  transform: translateX(20px);
+}
+
+/* Form overlay */
+.autojobr-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.autojobr-form-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #1f2937;
+}
+
+.autojobr-form-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.autojobr-form-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+.autojobr-form-header p {
+  color: #6b7280;
+}
+
+/* Success/Error states */
+.autojobr-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+  z-index: 1000001;
+  font-weight: 500;
+  animation: autojobr-slide-in 0.3s ease-out;
+}
+
+.autojobr-notification.error {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  box-shadow: 0 4px 20px rgba(248, 113, 113, 0.3);
+}
+
+@keyframes autojobr-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .autojobr-floating-widget {
+    width: 280px;
+    right: 10px;
+    top: 10px;
+  }
+  
+  .autojobr-content {
+    padding: 16px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .autojobr-floating-widget {
+    border: 2px solid white;
+  }
+  
+  .autojobr-btn {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .autojobr-floating-widget,
+  .autojobr-btn,
+  .autojobr-spinner {
+    transition: none;
+    animation: none;
+  }
+}

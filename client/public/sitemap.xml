@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        
+    <!-- Homepage -->
+    <url>
+        <loc>https://autojobr.com/</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Main Pages -->
+    <url>
+        <loc>https://autojobr.com/dashboard</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/applications</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/jobs</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>hourly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/profile</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/post-job</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/recruiter-dashboard</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/chat</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>hourly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Feature Pages -->
+    <url>
+        <loc>https://autojobr.com/features</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/pricing</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/chrome-extension</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/ats-optimizer</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/job-tracker</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Information Pages -->
+    <url>
+        <loc>https://autojobr.com/about</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/contact</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/privacy</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/terms</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- Blog/Resources -->
+    <url>
+        <loc>https://autojobr.com/blog</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/guides</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/help</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Category Pages -->
+    <url>
+        <loc>https://autojobr.com/jobs/software-engineer</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/jobs/data-scientist</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/jobs/product-manager</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/jobs/marketing</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://autojobr.com/jobs/sales</loc>
+        <lastmod>2025-06-29</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+</urlset>

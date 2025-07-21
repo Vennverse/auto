@@ -1,0 +1,76 @@
+# AutoJobr Robots.txt
+# AI-Powered Job Application Automation Platform
+
+User-agent: *
+Allow: /
+
+# Allow all search engines to index our content
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Allow AI chatbots and crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Crawl delay for heavy bots
+User-agent: *
+Crawl-delay: 1
+
+# Disallow sensitive areas
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /search?*
+
+# Allow important pages
+Allow: /api/sitemap
+Allow: /api/feed
+
+# Sitemap location
+Sitemap: https://autojobr.com/sitemap.xml
+Sitemap: https://autojobr.com/api/sitemap.xml
+
+# Host directive
+Host: https://autojobr.com

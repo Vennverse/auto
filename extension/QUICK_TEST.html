@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AutoJobr Extension - Quick Connection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .loading { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .details { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>AutoJobr Extension Connection Test</h1>
+    
+    <div id="status" class="status loading">
+        🔄 Testing connection...
+    </div>
+    
+    <button onclick="testConnection()">Test Connection</button>
+    <button onclick="testProfile()">Test Profile</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        const API_URL = 'https://60e68a76-86c4-4eef-b2f5-8a97de774d09-00-f9a0u7nh8k0p.kirk.replit.dev';
+        
+        function updateStatus(message, isSuccess = null) {
+            const status = document.getElementById('status');
+            status.innerHTML = message;
+            status.className = 'status ' + (isSuccess === true ? 'success' : isSuccess === false ? 'error' : 'loading');
+        }
+        
+        function addResult(title, success, message) {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = 'details';
+            div.innerHTML = `
+                <h3>${success ? '✅' : '❌'} ${title}</h3>
+                <p>${message}</p>
+            `;
+            results.appendChild(div);
+        }
+        
+        async function testConnection() {
+            updateStatus('🔄 Testing backend connection...');
+            
+            try {
+                const response = await fetch(`${API_URL}/api/health`);
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'ok') {
+                    updateStatus('✅ Backend connection successful!', true);
+                    addResult('Health Check', true, `Backend is running. Service: ${data.service}`);
+                } else {
+                    updateStatus('❌ Backend connection failed', false);
+                    addResult('Health Check', false, `Unexpected response: ${JSON.stringify(data)}`);
+                }
+            } catch (error) {
+                updateStatus('❌ Connection failed', false);
+                addResult('Health Check', false, `Error: ${error.message}`);
+            }
+        }
+        
+        async function testProfile() {
+            updateStatus('🔄 Testing profile access...');
+            
+            try {
+                const response = await fetch(`${API_URL}/api/extension/profile`, {
+                    credentials: 'include'
+                });
+                
+                if (response.status === 401) {
+                    updateStatus('⚠️ Authentication required', null);
+                    addResult('Profile Test', false, 'You need to login at the web app first');
+                } else if (response.ok) {
+                    const data = await response.json();
+                    updateStatus('✅ Profile access successful!', true);
+                    addResult('Profile Test', true, `Connected as: ${data.user?.email || 'Unknown user'}`);
+                } else {
+                    updateStatus('❌ Profile access failed', false);
+                    addResult('Profile Test', false, `HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                updateStatus('❌ Profile test failed', false);
+                addResult('Profile Test', false, `Error: ${error.message}`);
+            }
+        }
+        
+        // Auto-test connection on load
+        window.onload = () => {
+            testConnection();
+        };
+    </script>
+</body>
+</html>

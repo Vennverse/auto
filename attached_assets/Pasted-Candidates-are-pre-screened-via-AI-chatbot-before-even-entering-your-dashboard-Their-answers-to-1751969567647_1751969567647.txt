@@ -1,0 +1,151 @@
+Candidates are pre-screened via AI chatbot before even entering your dashboard.
+
+Their answers, tone, and clarity go into score.
+
+Recruiters read summary + transcript instead of 100s of resumes.
+
+Implementing **"Why You’re Not Getting Hired" – Post-Application AI Feedback** is an **absolute game-changer** — and it can be done efficiently using a mix of **NLP, vector embeddings, and prompt-based reasoning.** Here's exactly how to build it:
+
+---
+
+## 🔧 STEP-BY-STEP TECH STACK + LOGIC
+
+### ✅ Step 1: **Collect Required Inputs**
+
+* User’s **resume** (PDF or parsed text)
+* **Job Description** they applied to (JD)
+* (Optional: Recruiter screening feedback in future)
+
+---
+
+### 🧠 Step 2: **Preprocess the Resume & JD**
+
+Use a resume parser (like [Affinda](https://www.affinda.com/), [Sovren](https://sovren.com/), or `pyresparser`) to extract:
+
+* Skills
+* Education
+* Work Experience
+* Projects
+* Certifications
+
+Then tokenize both resume & JD into:
+
+* Keywords
+* Phrases
+* Role titles
+* Experience level terms
+
+> You can use NLP tools like **spaCy**, **KeyBERT**, or **Hugging Face Transformers**.
+
+---
+
+### 🧠 Step 3: **Perform Skill & Keyword Matching**
+
+Create two lists:
+
+**From Resume (R):**
+
+```python
+['Python', 'Machine Learning', 'Keras', 'Flask', 'Intern at TCS', 'B.Tech CS']
+```
+
+**From JD (J):**
+
+```python
+['Python', 'SQL', 'Machine Learning', 'Data Visualization', 'Bachelor’s Degree', 'Internship Experience']
+```
+
+Then compare:
+
+```python
+missing_skills = [j for j in JD_keywords if j not in Resume_keywords]
+matched_skills = [r for r in Resume_keywords if r in JD_keywords]
+```
+
+---
+
+### 💬 Step 4: **Generate Natural Language Feedback**
+
+Now feed the matches/mismatches into a **prompt template** to LLM (like GPT or Qwen):
+
+```python
+prompt = f"""
+Compare this resume with the following job description and explain in simple points:
+1. Skills or experience missing in the resume compared to JD
+2. Skills that match well
+3. Areas where the resume could be improved to match the role better
+
+Resume:
+{resume_text}
+
+Job Description:
+{jd_text}
+"""
+```
+
+LLM Output Example:
+
+* ❌ “Missing SQL and Tableau, which are core to the JD.”
+* ⚠️ “Internship section is weak. Add relevant experience if possible.”
+* ✅ “Strong in Python, ML, and relevant education.”
+
+---
+
+### 📊 Step 5: **Track Pattern Over Time (Per User)**
+
+Store every job application + feedback result in the user’s history.
+
+> Over time you can show:
+
+* "You're consistently missing SQL in 70% of jobs"
+* "Fixing your experience section would improve 50% match rate"
+
+**DB Schema Example (MongoDB or Postgres)**:
+
+```json
+{
+  "user_id": "abc123",
+  "job_id": "xyz567",
+  "feedback": {
+    "missing": ["SQL", "Internship"],
+    "match": ["Python", "ML"],
+    "advice": "Add internship + SQL project"
+  },
+  "timestamp": "2025-06-30T13:15:00"
+}
+```
+
+---
+
+## 🔐 Tech Stack
+
+| Feature                | Tool/API                                 |
+| ---------------------- | ---------------------------------------- |
+| Resume parsing         | Affinda / Pyresparser / Sovren           |
+| NLP Keyword extraction | spaCy / KeyBERT / Hugging Face           |
+| Text similarity        | Sentence-BERT (SBERT) or Cosine Score    |
+| AI feedback generation | OpenAI / Groq (Qwen 32B), Claude, Gemini |
+| Storage                | MongoDB / Postgres                       |
+| Frontend Feedback View | React + Timeline + Skill Highlight Cards |
+
+---
+
+## ✅ UX Display Idea
+
+| ✅ Match          | ❌ Missing | ⚠️ Improve           |
+| ---------------- | --------- | -------------------- |
+| Python           | SQL       | Add internship       |
+| Machine Learning | Tableau   | Format resume better |
+
+* Tooltip on each skill shows examples or links to upskill.
+* Prompt action: “📚 Learn SQL in 3 hours \[Coursera]”
+
+---
+
+## 🌟 Bonus: Gamify It
+
+* Resume Score: 78% match
+* Your top 3 job types
+* “Fix these 2 things to unlock 5x visibility”
+
+---

@@ -1,0 +1,33 @@
+# Development Dockerfile for AutoJobr
+FROM node:20-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apk add --no-cache \
+    postgresql-client \
+    curl \
+    git
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p uploads/resumes
+
+# Expose ports
+EXPOSE 5000
+EXPOSE 3000
+
+# Set environment
+ENV NODE_ENV=development
+
+# Start development server
+CMD ["npm", "run", "dev"]

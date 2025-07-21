@@ -1,0 +1,93 @@
+ 1. Job Posting and Management
+Post single or multiple job openings
+
+Set custom requirements: skills, experience, qualifications
+
+Schedule posts (start/end date)
+
+Clone previous listings for faster setup
+
+Bulk import job descriptions via CSV/ATS
+
+🎯 2. Candidate Matching & Shortlisting
+AI-based candidate recommendations
+
+Skill match scoring and rankings
+
+Keyword-based filtering
+
+Auto-shortlist top X% of applicants
+
+🔍 3. Advanced Search Filters
+Filter by: education, experience, location, skills, certifications, availability
+
+Boolean search support
+
+Saved searches & smart alerts for new matches
+
+📁 4. Resume Parsing & Profiling
+AI-powered resume parser for quick insights
+
+Auto-generated candidate summaries
+
+View candidate career trajectory and skill trends
+
+📊 5. Recruiter Dashboard
+Visual pipeline of candidates per job
+
+Metrics: applications received, reviewed, shortlisted, interviewed
+
+Daily/weekly recruitment analytics reports
+
+✉️ 6. Communication Tools
+In-app messaging with templates
+
+Schedule interviews or send offers
+
+Email & WhatsApp integrations
+
+Bulk outreach campaigns
+
+🧠 7. AI-Powered Insights
+Predict likelihood of candidate joining
+
+Salary benchmarking
+
+Candidate engagement scoring
+
+DEI analysis (diversity tracking)
+
+🔐 8. Collaboration & Team Access
+Multi-user recruiter accounts
+
+Share notes and feedback on candidates
+
+Role-based access (e.g., recruiter, HRBP, hiring manager)
+
+🔄 9. ATS & CRM Integrations
+Connect with tools like Greenhouse, Lever, Workable
+
+Export candidate profiles and notes
+
+Sync interviews and feedback to existing HR systems
+
+🌐 10. Employer Branding Tools
+Branded career page builder
+
+Showcase team, culture, benefits
+
+Video intros from founders or hiring managers
+
+💬 11. Feedback Collection
+Collect candidate experience ratings
+
+Automated post-interview surveys
+
+Improve hiring process based on feedback
+
+🕵️ 12. Fraud Detection & Verification
+Flag duplicate or suspicious profiles
+
+Background check integrations
+
+Document verification support

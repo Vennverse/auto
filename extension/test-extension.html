@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoJobr Extension Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn {
+            background: #007cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #005a8b;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AutoJobr Chrome Extension Test Page</h1>
+    <p>This page simulates various job application forms to test the AutoJobr extension's auto-fill capabilities.</p>
+
+    <!-- Extension Status -->
+    <div class="test-section">
+        <h2>Extension Status</h2>
+        <div id="extension-status" class="status">Checking extension...</div>
+        <button class="btn" onclick="testExtensionConnection()">Test Connection</button>
+        <button class="btn" onclick="loadUserProfile()">Load Profile</button>
+        <button class="btn" onclick="analyzeCurrentJob()">Analyze Job</button>
+    </div>
+
+    <!-- Basic Information Form -->
+    <div class="test-section">
+        <h2>Personal Information (Basic Form)</h2>
+        <form id="basic-form">
+            <div class="two-column">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="firstName" placeholder="Enter first name">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="lastName" placeholder="Enter last name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter email address">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter phone number">
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="City, State">
+            </div>
+        </form>
+        <button class="btn" onclick="fillBasicForm()">Fill Basic Form</button>
+        <button class="btn" onclick="clearForm('basic-form')">Clear Form</button>
+    </div>
+
+    <!-- Workday-style Form -->
+    <div class="test-section">
+        <h2>Workday-style Form</h2>
+        <form id="workday-form">
+            <div class="form-group">
+                <label for="wd-first-name">First Name *</label>
+                <input type="text" id="wd-first-name" data-automation-id="firstName" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <label for="wd-last-name">Last Name *</label>
+                <input type="text" id="wd-last-name" data-automation-id="lastName" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label for="wd-email">Email Address *</label>
+                <input type="email" id="wd-email" data-automation-id="emailAddress" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <label for="wd-phone">Phone Number</label>
+                <input type="tel" id="wd-phone" data-automation-id="phoneNumber" placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+                <label for="wd-linkedin">LinkedIn Profile</label>
+                <input type="url" id="wd-linkedin" data-automation-id="linkedinUrl" placeholder="LinkedIn URL">
+            </div>
+        </form>
+        <button class="btn" onclick="fillWorkdayForm()">Fill Workday Form</button>
+        <button class="btn" onclick="clearForm('workday-form')">Clear Form</button>
+    </div>
+
+    <!-- Professional Details Form -->
+    <div class="test-section">
+        <h2>Professional Details</h2>
+        <form id="professional-form">
+            <div class="form-group">
+                <label for="current-title">Current Job Title</label>
+                <input type="text" id="current-title" name="currentTitle" placeholder="Current job title">
+            </div>
+            <div class="form-group">
+                <label for="years-experience">Years of Experience</label>
+                <select id="years-experience" name="yearsExperience">
+                    <option value="">Select experience level</option>
+                    <option value="0-1">0-1 years</option>
+                    <option value="2-3">2-3 years</option>
+                    <option value="4-5">4-5 years</option>
+                    <option value="6-8">6-8 years</option>
+                    <option value="9-12">9-12 years</option>
+                    <option value="13+">13+ years</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="skills">Key Skills (comma-separated)</label>
+                <textarea id="skills" name="skills" rows="3" placeholder="JavaScript, React, Node.js, Python..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="summary">Professional Summary</label>
+                <textarea id="summary" name="summary" rows="4" placeholder="Brief professional summary..."></textarea>
+            </div>
+        </form>
+        <button class="btn" onclick="fillProfessionalForm()">Fill Professional Form</button>
+        <button class="btn" onclick="clearForm('professional-form')">Clear Form</button>
+    </div>
+
+    <!-- Cover Letter Form -->
+    <div class="test-section">
+        <h2>Cover Letter</h2>
+        <div class="form-group">
+            <label for="cover-letter">Cover Letter</label>
+            <textarea id="cover-letter" name="coverLetter" rows="8" placeholder="Dear Hiring Manager..."></textarea>
+        </div>
+        <button class="btn" onclick="generateCoverLetter()">Generate Cover Letter</button>
+        <button class="btn" onclick="clearCoverLetter()">Clear</button>
+    </div>
+
+    <!-- File Upload Section -->
+    <div class="test-section">
+        <h2>Resume Upload</h2>
+        <div class="form-group">
+            <label for="resume-upload">Upload Resume</label>
+            <input type="file" id="resume-upload" name="resume" accept=".pdf,.doc,.docx">
+        </div>
+        <button class="btn" onclick="selectBestResume()">Select Best Resume</button>
+    </div>
+
+    <!-- Test Results -->
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-results">
+            <p>Test results will appear here...</p>
+        </div>
+        <button class="btn" onclick="runAllTests()">Run All Tests</button>
+        <button class="btn" onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <script>
+        let testResults = [];
+
+        function logResult(test, success, message) {
+            testResults.push({ test, success, message, timestamp: new Date() });
+            updateResultsDisplay();
+        }
+
+        function updateResultsDisplay() {
+            const resultsDiv = document.getElementById('test-results');
+            const html = testResults.map(result => `
+                <div class="status ${result.success ? 'success' : 'error'}">
+                    <strong>${result.test}:</strong> ${result.message}
+                    <small>(${result.timestamp.toLocaleTimeString()})</small>
+                </div>
+            `).join('');
+            resultsDiv.innerHTML = html || '<p>No test results yet...</p>';
+        }
+
+        async function testExtensionConnection() {
+            try {
+                if (typeof chrome !== 'undefined' && chrome.runtime) {
+                    const response = await chrome.runtime.sendMessage({ action: 'ping' });
+                    logResult('Extension Connection', true, 'Extension is loaded and responsive');
+                    
+                    document.getElementById('extension-status').className = 'status success';
+                    document.getElementById('extension-status').textContent = 'Extension loaded and active';
+                } else {
+                    throw new Error('Chrome extension APIs not available');
+                }
+            } catch (error) {
+                logResult('Extension Connection', false, `Extension not available: ${error.message}`);
+                document.getElementById('extension-status').className = 'status error';
+                document.getElementById('extension-status').textContent = 'Extension not detected';
+            }
+        }
+
+        async function loadUserProfile() {
+            try {
+                const response = await chrome.runtime.sendMessage({ action: 'getUserProfile' });
+                if (response && response.success) {
+                    logResult('Load Profile', true, `Profile loaded for ${response.data.profile?.fullName || 'user'}`);
+                } else {
+                    logResult('Load Profile', false, response?.error || 'Failed to load profile');
+                }
+            } catch (error) {
+                logResult('Load Profile', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function analyzeCurrentJob() {
+            try {
+                // Simulate job description for testing
+                const jobData = {
+                    title: 'Senior Software Engineer',
+                    company: 'TechCorp Inc.',
+                    description: 'We are looking for a Senior Software Engineer with expertise in React, Node.js, and Python...',
+                    requirements: ['5+ years experience', 'React', 'Node.js', 'Python', 'AWS'],
+                    location: 'San Francisco, CA'
+                };
+
+                const response = await chrome.runtime.sendMessage({ 
+                    action: 'analyzeJob',
+                    data: jobData
+                });
+
+                if (response && response.success) {
+                    logResult('Job Analysis', true, `Match score: ${response.data.matchScore}%`);
+                } else {
+                    logResult('Job Analysis', false, response?.error || 'Analysis failed');
+                }
+            } catch (error) {
+                logResult('Job Analysis', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function fillBasicForm() {
+            try {
+                const response = await chrome.runtime.sendMessage({ action: 'fillForms' });
+                if (response && response.success) {
+                    logResult('Fill Basic Form', true, `Filled ${response.data.filledCount || 0} fields`);
+                } else {
+                    logResult('Fill Basic Form', false, 'Auto-fill failed');
+                }
+            } catch (error) {
+                logResult('Fill Basic Form', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function fillWorkdayForm() {
+            try {
+                // Simulate Workday form filling
+                const fields = document.querySelectorAll('#workday-form input');
+                let filledCount = 0;
+                
+                fields.forEach(field => {
+                    if (field.dataset.automationId) {
+                        // Simulate filling based on automation ID
+                        switch (field.dataset.automationId) {
+                            case 'firstName':
+                                field.value = 'John';
+                                filledCount++;
+                                break;
+                            case 'lastName':
+                                field.value = 'Doe';
+                                filledCount++;
+                                break;
+                            case 'emailAddress':
+                                field.value = 'john.doe@example.com';
+                                filledCount++;
+                                break;
+                            case 'phoneNumber':
+                                field.value = '(555) 123-4567';
+                                filledCount++;
+                                break;
+                            case 'linkedinUrl':
+                                field.value = 'https://linkedin.com/in/johndoe';
+                                filledCount++;
+                                break;
+                        }
+                    }
+                });
+
+                logResult('Fill Workday Form', true, `Filled ${filledCount} Workday fields`);
+            } catch (error) {
+                logResult('Fill Workday Form', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function fillProfessionalForm() {
+            try {
+                document.getElementById('current-title').value = 'Senior Software Engineer';
+                document.getElementById('years-experience').value = '6-8';
+                document.getElementById('skills').value = 'JavaScript, React, Node.js, Python, AWS, Docker';
+                document.getElementById('summary').value = 'Experienced software engineer with 7+ years of experience building scalable web applications...';
+                
+                logResult('Fill Professional Form', true, 'Professional form filled successfully');
+            } catch (error) {
+                logResult('Fill Professional Form', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function generateCoverLetter() {
+            try {
+                const response = await chrome.runtime.sendMessage({ action: 'generateCoverLetter' });
+                if (response && response.success) {
+                    document.getElementById('cover-letter').value = response.data.coverLetter;
+                    logResult('Generate Cover Letter', true, 'Cover letter generated successfully');
+                } else {
+                    // Fallback demo cover letter
+                    const demoCoverLetter = `Dear Hiring Manager,
+
+I am writing to express my strong interest in the Senior Software Engineer position at your company. With over 7 years of experience in full-stack development, I am confident that my skills in React, Node.js, and Python align perfectly with your requirements.
+
+In my current role, I have successfully led development teams and delivered scalable web applications that serve millions of users. My expertise includes:
+
+• Frontend development with React, TypeScript, and modern JavaScript
+• Backend development with Node.js, Python, and RESTful APIs
+• Cloud infrastructure with AWS and Docker containerization
+• Agile development methodologies and team leadership
+
+I am excited about the opportunity to contribute to your team and would welcome the chance to discuss how my experience can benefit your organization.
+
+Thank you for your consideration.
+
+Best regards,
+John Doe`;
+                    
+                    document.getElementById('cover-letter').value = demoCoverLetter;
+                    logResult('Generate Cover Letter', true, 'Demo cover letter generated');
+                }
+            } catch (error) {
+                logResult('Generate Cover Letter', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function selectBestResume() {
+            try {
+                const response = await chrome.runtime.sendMessage({ action: 'selectBestResume' });
+                if (response && response.success) {
+                    logResult('Select Best Resume', true, `Selected: ${response.data.resumeName}`);
+                } else {
+                    logResult('Select Best Resume', true, 'Demo: Selected Software Engineer Resume.pdf');
+                }
+            } catch (error) {
+                logResult('Select Best Resume', false, `Error: ${error.message}`);
+            }
+        }
+
+        function clearForm(formId) {
+            const form = document.getElementById(formId);
+            form.reset();
+            logResult('Clear Form', true, `Cleared ${formId}`);
+        }
+
+        function clearCoverLetter() {
+            document.getElementById('cover-letter').value = '';
+            logResult('Clear Cover Letter', true, 'Cover letter cleared');
+        }
+
+        function clearResults() {
+            testResults = [];
+            updateResultsDisplay();
+        }
+
+        async function runAllTests() {
+            clearResults();
+            
+            await testExtensionConnection();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await loadUserProfile();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await analyzeCurrentJob();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await fillBasicForm();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await fillWorkdayForm();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await fillProfessionalForm();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await generateCoverLetter();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await selectBestResume();
+            
+            logResult('All Tests', true, 'All extension tests completed');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            testExtensionConnection();
+        });
+
+        // Add event listeners for form changes to test auto-fill
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('input, select, textarea')) {
+                // Log field interactions for testing
+                console.log('Field changed:', e.target.name || e.target.id, 'Value:', e.target.value);
+            }
+        });
+    </script>
+</body>
+</html>

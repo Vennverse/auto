@@ -1,0 +1,34 @@
+🚀 AutoJobr Smart Detector initialized
+smart-detector.js:92 🔍 Checking AutoJobr authentication...
+smart-detector.js:116 ❌ AutoJobr authentication check failed: TypeError: Failed to fetch
+    at SmartJobDetector.checkAuthentication (smart-detector.js:93:30)
+    at SmartJobDetector.init (smart-detector.js:64:31)
+    at new SmartJobDetector (smart-detector.js:54:10)
+    at smart-detector.js:1180:5
+smart-detector.js:65 Auth status after init: false
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+chrome-extension://invalid/:1  Failed to load resource: net::ERR_FAILED

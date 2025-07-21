@@ -1,0 +1,119 @@
+🚀 Product Specification for AutoJobr (Web App + Chrome Extension)
+(Better and more futuristic than Simplify.jobs)
+
+🔰 Product Name: AutoJobr
+A smart, all-in-one job application platform that automates job form filling, tracks applications, analyzes job descriptions vs your resume, and helps you land jobs faster—with zero friction.
+
+✅ 1. User Authentication (Web App)
+Email/Password login
+
+Google OAuth Login (Firebase/Auth0)
+
+LinkedIn OAuth Login (to import profile data)
+
+Secure JWT-based session handling
+
+✅ 2. Onboarding Flow (Web App)
+Resume Upload (PDF/DOCX)
+
+Auto-extract:
+
+Name, Email, Phone
+
+Skills, Work History, Education, Certifications
+
+Use free Python tools: pdfminer / docx2txt (on backend).
+
+Manual Fill If Needed
+
+If extraction incomplete, prompt user to fill missing fields (like LinkedIn URL, skills, etc.).
+
+Store Structured User Profile in backend (Firebase/Supabase).
+
+✅ 3. Chrome Extension (AutoJobr Copilot)
+Auto-detect job application pages on:
+
+Workday, Greenhouse, Lever, iCIMS, LinkedIn EasyApply, BambooHR, etc.
+
+Auto-fill forms using user profile from backend.
+
+Toggle Autofill On/Off via extension popup.
+
+Job Description Analysis:
+
+Extract JD text using content.js.
+
+Run Compromise.js / NLP.js (Free, In-browser NLP):
+
+Required Skills (Tech/Soft)
+
+Seniority Level (Entry/Mid/Senior)
+
+Remote/Onsite Detection
+
+Calculate & show:
+
+Match Score (%)
+
+Missing Skills
+
+Recommended Keywords for Resume
+
+Optional: Fetch salary estimate or company rating (Glassdoor/Indeed via API or scraping).
+
+✅ 4. Job Application Tracking (Web App + Extension)
+When the user applies via the extension, log:
+
+Job Title
+
+Company
+
+Date Applied
+
+Application Status (Applied/Interview/Offer/Rejected)
+
+Show application history in user’s dashboard.
+
+Allow manual status updates.
+
+✅ 5. Current Job Analysis (In-browser, FREE tools only)
+Extract job post data from the site (in extension).
+
+Analyze using:
+
+Compromise.js / NLP.js for:
+
+Hard skills
+
+Soft skills
+
+Seniority
+
+Remote/Onsite
+
+JS Set intersection for Match Score vs User Resume.
+
+Display Job Match Score & "Missing Skills" directly in the Chrome popup.
+
+✅ 6. Job Recommendation System (Web App)
+Use free job APIs (Adzuna, RapidAPI job boards) to suggest jobs:
+
+Based on user skills, location, interests.
+
+Explain “Why This Job Matches You” using skill comparison.
+
+✅ 7. Extra Features (for Best User Experience)
+User Dashboard:
+
+Profile completion meter
+
+Tracked Applications
+
+Resume Updater
+
+"Learn These Skills" based on job market gap analysis
+
+Dark Mode toggle
+
+Fully Mobile Responsive Web App
+

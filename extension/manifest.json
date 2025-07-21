@@ -1,0 +1,85 @@
+{
+  "manifest_version": 3,
+  "name": "AutoJobr - Smart Job Application Assistant",
+  "version": "3.0.0",
+  "description": "High-performance job application automation with AI-powered analysis and instant form filling",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "cookies",
+    "background",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*",
+    "https://0117fbd0-73a8-4b8b-932f-6621c1591b33-00-1jotg3lwkj0py.picard.replit.dev/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://linkedin.com/*",
+        "*://*.linkedin.com/*",
+        "*://indeed.com/*",
+        "*://*.indeed.com/*",
+        "*://glassdoor.com/*",
+        "*://*.glassdoor.com/*",
+        "*://workday.com/*",
+        "*://*.workday.com/*",
+        "*://lever.co/*",
+        "*://*.lever.co/*",
+        "*://greenhouse.io/*",
+        "*://*.greenhouse.io/*",
+        "*://monster.com/*",
+        "*://*.monster.com/*",
+        "*://ziprecruiter.com/*",
+        "*://*.ziprecruiter.com/*",
+        "*://wellfound.com/*",
+        "*://*.wellfound.com/*",
+        "*://angel.co/*",
+        "*://*.angel.co/*",
+        "*://bamboohr.com/*",
+        "*://*.bamboohr.com/*",
+        "*://smartrecruiters.com/*",
+        "*://*.smartrecruiters.com/*",
+        "*://jobvite.com/*",
+        "*://*.jobvite.com/*",
+        "*://icims.com/*",
+        "*://*.icims.com/*",
+        "*://taleo.net/*",
+        "*://*.taleo.net/*",
+        "*://successfactors.com/*",
+        "*://*.successfactors.com/*",
+        "*://ashbyhq.com/*",
+        "*://*.ashbyhq.com/*"
+      ],
+      "js": ["smart-detector.js", "form-filler.js"],
+      "css": ["autojobr-styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AutoJobr Assistant"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "autojobr-overlay.html",
+        "autojobr-styles.css",
+        "autojobr-floating-panel.js",
+        "icons/*.png"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

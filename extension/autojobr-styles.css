@@ -1,0 +1,343 @@
+/* AutoJobr Extension Styles */
+.autojobr-floating-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 380px;
+  max-height: 600px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+  overflow: hidden;
+  animation: autojobr-slide-in 0.3s ease-out;
+}
+
+@keyframes autojobr-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.autojobr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.autojobr-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.autojobr-logo img {
+  width: 24px;
+  height: 24px;
+}
+
+.autojobr-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.autojobr-close:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.autojobr-content {
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.autojobr-auth-required {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.autojobr-auth-required h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.autojobr-auth-required p {
+  margin: 0 0 20px 0;
+  color: #6b7280;
+}
+
+.autojobr-analysis {
+  margin-bottom: 20px;
+}
+
+.autojobr-score {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 12px;
+}
+
+.score-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.score-details h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.score-details p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.autojobr-matches {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.autojobr-analyzing {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e5e5;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 12px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.autojobr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.autojobr-btn-primary {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.autojobr-btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.autojobr-btn-secondary {
+  background: #f8fafc;
+  color: #374151;
+  border: 1px solid #e5e5e5;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.autojobr-btn-secondary:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.autojobr-info {
+  padding: 16px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.autojobr-info p {
+  margin: 0;
+}
+
+.autojobr-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  z-index: 2147483647;
+  animation: autojobr-notification-in 0.3s ease-out;
+}
+
+.autojobr-notification-success {
+  background: #10b981;
+}
+
+.autojobr-notification-error {
+  background: #ef4444;
+}
+
+.autojobr-notification-info {
+  background: #3b82f6;
+}
+
+@keyframes autojobr-notification-in {
+  from {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.autojobr-fill-summary {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #10b981;
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 2147483647;
+  animation: autojobr-slide-up 0.3s ease-out;
+  max-width: 300px;
+}
+
+@keyframes autojobr-slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.summary-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.summary-content p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.summary-actions button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.summary-actions button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .autojobr-floating-panel {
+    left: 10px;
+    right: 10px;
+    width: auto;
+    top: 10px;
+  }
+  
+  .autojobr-fill-summary {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .autojobr-floating-panel {
+    border: 2px solid #000;
+  }
+  
+  .autojobr-btn-primary {
+    border: 2px solid #000;
+  }
+  
+  .autojobr-btn-secondary {
+    border: 2px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .autojobr-floating-panel,
+  .autojobr-notification,
+  .autojobr-fill-summary {
+    animation: none;
+  }
+  
+  .autojobr-btn-primary:hover,
+  .autojobr-btn-secondary:hover {
+    transform: none;
+  }
+}
