@@ -251,7 +251,8 @@ export async function setupAuth(app: Express) {
       // Send verification email
       try {
         const { sendEmail, generateVerificationEmail } = await import('./emailService');
-        const emailHtml = generateVerificationEmail(verificationToken, 'AutoJobr');
+        const userName = firstName ? `${firstName}${lastName ? ' ' + lastName : ''}` : 'User';
+        const emailHtml = generateVerificationEmail(verificationToken, userName, 'job_seeker');
         
         await sendEmail({
           to: email,
@@ -388,7 +389,7 @@ export async function setupAuth(app: Express) {
   // Email verification endpoint
   app.get('/api/auth/verify-email', async (req, res) => {
     try {
-      const { token } = req.query;
+      const { token, redirect } = req.query;
 
       if (!token) {
         return res.status(400).json({ message: 'Verification token is required' });
@@ -453,12 +454,21 @@ export async function setupAuth(app: Express) {
           
           console.log('Verification session saved successfully for user:', user.id);
           
-          // Redirect based on user type
+          // Determine redirect based on user type and source
+          let redirectPath = '/';
+          
           if (user.userType === 'recruiter') {
-            res.redirect('/post-job?verified=true');
+            redirectPath = '/post-job?verified=true';
           } else {
-            res.redirect('/onboarding?verified=true');
+            // For job seekers, check if they came from recruiter page
+            if (redirect === 'recruiter' || redirect === 'post-job') {
+              redirectPath = '/post-job?verified=true';
+            } else {
+              redirectPath = '/onboarding?verified=true';
+            }
           }
+          
+          res.redirect(redirectPath);
         });
       } else {
         return res.status(400).json({ message: 'User not found' });
@@ -849,7 +859,8 @@ export async function setupAuth(app: Express) {
       // Send verification email
       try {
         const { sendEmail, generateVerificationEmail } = await import('./emailService');
-        const emailHtml = generateVerificationEmail(verificationToken, 'AutoJobr');
+        const userName = user.firstName ? `${user.firstName}${user.lastName ? ' ' + user.lastName : ''}` : 'User';
+        const emailHtml = generateVerificationEmail(verificationToken, userName, user.userType || 'job_seeker');
         
         await sendEmail({
           to: email,

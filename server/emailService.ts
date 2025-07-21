@@ -138,7 +138,7 @@ export function generateVerificationEmail(token: string, nameOrCompany: string, 
         </div>
         
         <div style="background: white; padding: 40px; border: 1px solid #e1e5e9; border-top: none; border-radius: 0 0 10px 10px;">
-          <h2 style="color: #333; margin-top: 0;">Hi ${nameOrCompany} Team,</h2>
+          <h2 style="color: #333; margin-top: 0;">Hi ${nameOrCompany},</h2>
           
           <p style="color: #666; line-height: 1.6;">
             Thank you for joining AutoJobr as a recruiter! To complete your registration and start posting jobs, 
