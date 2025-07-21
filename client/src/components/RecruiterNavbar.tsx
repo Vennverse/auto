@@ -17,7 +17,8 @@ import {
   Star,
   Bell,
   GitBranch,
-  Video
+  Video,
+  Plus
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -53,10 +54,22 @@ export function RecruiterNavbar({ user }: RecruiterNavbarProps) {
 
   const navigationItems = [
     {
-      name: "Dashboard",
-      href: "/recruiter/dashboard",
-      icon: BarChart3,
-      current: location === "/recruiter/dashboard"
+      name: "Recruiter Dashboard",
+      href: "/",
+      icon: Building,
+      current: location === "/" || location === "/recruiter-dashboard"
+    },
+    {
+      name: "User Dashboard",
+      href: "/dashboard",
+      icon: Users,
+      current: location === "/dashboard" || location === "/user-dashboard"
+    },
+    {
+      name: "Post Job",
+      href: "/post-job",
+      icon: Plus,
+      current: location === "/post-job"
     },
     {
       name: "Job Postings",

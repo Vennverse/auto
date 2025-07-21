@@ -90,6 +90,8 @@ function Router() {
               <Route path="/recruiter-dashboard" component={UnifiedRecruiterDashboard} />
               <Route path="/enhanced-dashboard" component={UnifiedRecruiterDashboard} />
               <Route path="/advanced-dashboard" component={UnifiedRecruiterDashboard} />
+              
+              {/* Recruiter-specific routes */}
               <Route path="/recruiter/post-job" component={PostJob} />
               <Route path="/recruiter/edit-job/:id" component={EditJob} />
               <Route path="/premium-targeting" component={PremiumTargetingPage} />
@@ -106,6 +108,29 @@ function Router() {
               <Route path="/admin/question-bank" component={QuestionBankAdmin} />
               <Route path="/recruiter/interview-assignments" component={InterviewAssignments} />
               <Route path="/recruiter/pipeline" component={PipelineManagement} />
+              
+              {/* Give recruiters access to job seeker features for testing/understanding */}
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/user-dashboard" component={Dashboard} />
+              <Route path="/applications" component={Applications} />
+              <Route path="/resumes" component={ResumesPage} />
+              <Route path="/discover" component={JobDiscoveryPage} />
+              <Route path="/job-seeker-tests" component={JobSeekerTests} />
+              <Route path="/job-seeker/tests" component={JobSeekerTests} />
+              <Route path="/ranking-tests" component={RankingTests} />
+              <Route path="/test/:id" component={TestTaking} />
+              <Route path="/test/:id/retake-payment">
+                {(params) => <TestRetakePayment />}
+              </Route>
+              <Route path="/mock-interview" component={MockInterview} />
+              <Route path="/mock-interview/session/:sessionId" component={MockInterviewSession} />
+              <Route path="/mock-interview/:sessionId" component={MockInterviewSession} />
+              <Route path="/virtual-interview/new" component={VirtualInterviewStart} />
+              <Route path="/virtual-interview/:sessionId" component={VirtualInterview} />
+              <Route path="/virtual-interview/:sessionId/feedback" component={VirtualInterviewFeedback} />
+              <Route path="/career-ai-assistant" component={CareerAIAssistant} />
+              
+              {/* Common routes */}
               <Route path="/jobs/:id" component={ViewJob} />
               <Route path="/profile" component={Profile} />
               <Route path="/subscription" component={RecruiterSubscription} />

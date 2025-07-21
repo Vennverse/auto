@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest } from "@/lib/queryClient";
 import { Navbar } from "@/components/navbar";
+import { RecruiterNavbar } from "@/components/RecruiterNavbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -376,7 +377,7 @@ export default function Dashboard() {
 
   return (
     <div key="modern-dashboard-2024" className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <Navbar />
+      {user?.userType === 'recruiter' ? <RecruiterNavbar user={user} /> : <Navbar />}
       
       <motion.div 
         className="w-full mx-auto px-4 py-4 sm:py-8 max-w-7xl"

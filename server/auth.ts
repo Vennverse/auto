@@ -339,7 +339,7 @@ export async function setupAuth(app: Express) {
               : `${user.firstName || ''} ${user.lastName || ''}`.trim(),
             userType: user.userType
           },
-          redirectTo: user.userType === 'recruiter' ? '/post-job' : '/dashboard'
+          redirectTo: user.userType === 'recruiter' ? '/' : '/dashboard'
         });
       });
     } catch (error) {
