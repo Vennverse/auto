@@ -1,4 +1,3 @@
-# Production Docker Compose for AutoBR
 version: '3.8'
 
 services:
@@ -6,20 +5,17 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: autobr-app-prod
+    container_name: autojobr-app
     ports:
       - "5000:5000"
     environment:
       - NODE_ENV=production
-      - PORT=5000
-      - DATABASE_URL=postgresql://autobr:${POSTGRES_PASSWORD}@postgres:5432/autobr
+      - DATABASE_URL=postgresql://autojobr:${POSTGRES_PASSWORD}@postgres:5432/autojobr
       - GROQ_API_KEY=${GROQ_API_KEY}
       - RESEND_API_KEY=${RESEND_API_KEY}
-      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
-      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
       - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
       - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - SESSION_SECRET=${SESSION_SECRET}
       - REDIS_URL=redis://redis:6379
     depends_on:
       postgres:
@@ -31,83 +27,61 @@ services:
       - ./logs:/app/logs
     restart: unless-stopped
     networks:
-      - autobr-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - autojobr-network
 
   postgres:
     image: postgres:15-alpine
-    container_name: autobr-postgres-prod
+    container_name: autojobr-postgres
     environment:
-      - POSTGRES_DB=autobr
-      - POSTGRES_USER=autobr
+      - POSTGRES_DB=autojobr
+      - POSTGRES_USER=autojobr
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./backups:/backups
     ports:
-      - "127.0.0.1:5432:5432"  # Only expose to localhost
+      - "5432:5432"
     restart: unless-stopped
     networks:
-      - autobr-network
+      - autojobr-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U autobr -d autobr"]
+      test: ["CMD-SHELL", "pg_isready -U autojobr -d autojobr"]
       interval: 10s
       timeout: 5s
       retries: 5
-    command: >
-      postgres 
-      -c shared_preload_libraries=pg_stat_statements
-      -c pg_stat_statements.max=10000
-      -c pg_stat_statements.track=all
-      -c max_connections=100
-      -c shared_buffers=256MB
-      -c effective_cache_size=1GB
-      -c work_mem=4MB
-      -c maintenance_work_mem=64MB
-      -c checkpoint_completion_target=0.7
-      -c wal_buffers=16MB
-      -c default_statistics_target=100
 
   redis:
     image: redis:7-alpine
-    container_name: autobr-redis-prod
+    container_name: autojobr-redis
     ports:
-      - "127.0.0.1:6379:6379"  # Only expose to localhost
+      - "6379:6379"
     volumes:
       - redis_data:/data
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
     restart: unless-stopped
     networks:
-      - autobr-network
+      - autojobr-network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
-    command: redis-server /usr/local/etc/redis/redis.conf
 
   nginx:
     image: nginx:alpine
-    container_name: autobr-nginx-prod
+    container_name: autojobr-nginx
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./ssl:/etc/nginx/ssl
       - ./logs/nginx:/var/log/nginx
-      - /etc/letsencrypt:/etc/letsencrypt:ro  # For Let's Encrypt certificates
     depends_on:
       - app
     restart: unless-stopped
     networks:
-      - autobr-network
+      - autojobr-network
 
 volumes:
   postgres_data:
@@ -116,8 +90,5 @@ volumes:
     driver: local
 
 networks:
-  autobr-network:
+  autojobr-network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
