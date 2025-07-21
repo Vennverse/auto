@@ -121,7 +121,11 @@ export function generatePasswordResetEmail(token: string, userEmail: string): st
 }
 
 export function generateVerificationEmail(token: string, nameOrCompany: string, userType: string = 'recruiter'): string {
-  const verificationUrl = `${process.env.NODE_ENV === 'production' ? 'https://' : 'http://'}${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}/verify-email?token=${token}`;
+  // Use different endpoints for different user types
+  const baseUrl = `${process.env.NODE_ENV === 'production' ? 'https://' : 'http://'}${process.env.REPLIT_DOMAINS?.split(',')[0] || 'localhost:5000'}`;
+  const verificationUrl = userType === 'recruiter' 
+    ? `${baseUrl}/api/auth/verify-company-email?token=${token}`
+    : `${baseUrl}/api/auth/verify-email?token=${token}`;
   
   if (userType === 'recruiter') {
     return `

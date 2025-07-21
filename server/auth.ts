@@ -313,7 +313,9 @@ export async function setupAuth(app: Express) {
       (req as any).session.user = {
         id: user.id,
         email: user.email,
-        name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+        name: user.userType === 'recruiter' 
+          ? (user.companyName || 'Recruiter')
+          : `${user.firstName || ''} ${user.lastName || ''}`.trim(),
         firstName: user.firstName,
         lastName: user.lastName,
         userType: user.userType
@@ -332,9 +334,12 @@ export async function setupAuth(app: Express) {
           user: {
             id: user.id,
             email: user.email,
-            name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+            name: user.userType === 'recruiter' 
+              ? (user.companyName || 'Recruiter')
+              : `${user.firstName || ''} ${user.lastName || ''}`.trim(),
             userType: user.userType
-          }
+          },
+          redirectTo: user.userType === 'recruiter' ? '/post-job' : '/dashboard'
         });
       });
     } catch (error) {

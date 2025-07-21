@@ -113,7 +113,9 @@ export default function AuthPage() {
           title: "Login Successful",
           description: "Welcome back!",
         });
-        window.location.href = getRedirectUrl();
+        // Use redirectTo from server response if available, otherwise use getRedirectUrl
+        const redirectPath = data.redirectTo || getRedirectUrl();
+        window.location.href = redirectPath;
       } else if (response.status === 403 && data.requiresVerification) {
         // Email verification required
         setLocation(`/email-verification?email=${encodeURIComponent(formData.email)}`);

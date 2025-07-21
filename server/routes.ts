@@ -733,7 +733,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/auth/verify-email', async (req, res) => {
+  app.get('/api/auth/verify-company-email', async (req, res) => {
     try {
       const { token } = req.query;
       
