@@ -403,23 +403,23 @@ export default function Dashboard() {
           {/* Key Stats Overview */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats?.totalApplications || 0}</div>
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{(stats as any)?.totalApplications || 0}</div>
               <div className="text-blue-700 dark:text-blue-300 text-sm font-medium">Applications Sent</div>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20">
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400">{stats?.responseRate || 0}%</div>
+              <div className="text-3xl font-bold text-green-600 dark:text-green-400">{(stats as any)?.responseRate || 0}%</div>
               <div className="text-green-700 dark:text-green-300 text-sm font-medium">Response Rate</div>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20">
-              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">{stats?.avgMatchScore || 0}%</div>
+              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">{(stats as any)?.avgMatchScore || 0}%</div>
               <div className="text-purple-700 dark:text-purple-300 text-sm font-medium">Avg Match Score</div>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20">
-              <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{testAssignments?.filter((t: any) => t.status === 'completed').length || 0}</div>
+              <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{Array.isArray(testAssignments) ? testAssignments.filter((t: any) => t.status === 'completed').length : 0}</div>
               <div className="text-indigo-700 dark:text-indigo-300 text-sm font-medium">Tests Completed</div>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20">
-              <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{rankingTestHistory?.length || 0}</div>
+              <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{Array.isArray(rankingTestHistory) ? rankingTestHistory.length : 0}</div>
               <div className="text-yellow-700 dark:text-yellow-300 text-sm font-medium">Ranking Tests</div>
             </div>
           </div>
@@ -448,7 +448,7 @@ export default function Dashboard() {
               color: "blue",
               action: () => setLocation('/mock-interview'),
               gradient: "from-blue-500 to-blue-600",
-              badge: mockInterviewStats?.totalMockInterviews ? `${mockInterviewStats.totalMockInterviews} completed` : null
+              badge: (mockInterviewStats as any)?.totalMockInterviews ? `${(mockInterviewStats as any).totalMockInterviews} completed` : null
             },
             {
               title: "Assigned Tests",
@@ -457,7 +457,7 @@ export default function Dashboard() {
               color: "indigo",
               action: () => setLocation('/job-seeker-tests'),
               gradient: "from-indigo-500 to-indigo-600",
-              badge: testAssignments?.filter((t: any) => t.status === 'assigned').length ? `${testAssignments.filter((t: any) => t.status === 'assigned').length} pending` : null
+              badge: Array.isArray(testAssignments) && testAssignments.filter((t: any) => t.status === 'assigned').length ? `${testAssignments.filter((t: any) => t.status === 'assigned').length} pending` : null
             },
             {
               title: "Ranking Tests",
@@ -466,7 +466,7 @@ export default function Dashboard() {
               color: "yellow",
               action: () => setLocation('/ranking-tests'),
               gradient: "from-yellow-500 to-orange-500",
-              badge: rankingTestHistory?.length ? `${rankingTestHistory.length} taken` : null
+              badge: Array.isArray(rankingTestHistory) && rankingTestHistory.length ? `${rankingTestHistory.length} taken` : null
             },
             {
               title: "Real Interview Simulation",
@@ -555,7 +555,7 @@ export default function Dashboard() {
                     <Skeleton key={i} className="h-32 rounded-lg" />
                   ))}
                 </div>
-              ) : jobRecommendations?.length > 0 ? (
+              ) : Array.isArray(jobRecommendations) && jobRecommendations.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {jobRecommendations.slice(0, 6).map((job: any, index: number) => (
                     <motion.div
@@ -846,7 +846,7 @@ export default function Dashboard() {
                       <Skeleton key={i} className="h-16 rounded-lg" />
                     ))}
                   </div>
-                ) : applications?.length > 0 ? (
+                ) : Array.isArray(applications) && applications.length > 0 ? (
                   <div className="space-y-3">
                     {applications.slice(0, 5).map((app: any, index: number) => (
                       <div
@@ -908,7 +908,7 @@ export default function Dashboard() {
                 </div>
               </CardHeader>
               <CardContent>
-                {testAssignments?.length > 0 ? (
+                {Array.isArray(testAssignments) && testAssignments.length > 0 ? (
                   <div className="space-y-3">
                     {testAssignments.slice(0, 3).map((assignment: any, index: number) => (
                       <div
@@ -955,7 +955,7 @@ export default function Dashboard() {
                     ))}
                     
                     {/* Ranking Tests Summary */}
-                    {rankingTestHistory?.length > 0 && (
+                    {Array.isArray(rankingTestHistory) && rankingTestHistory.length > 0 && (
                       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="font-medium text-sm text-gray-700 dark:text-gray-300">Recent Ranking Tests</h4>

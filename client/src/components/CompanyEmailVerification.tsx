@@ -27,11 +27,19 @@ export function CompanyEmailVerification({ user, onVerificationSuccess }: Compan
 
   const verifyCompanyEmailMutation = useMutation({
     mutationFn: async (data: { companyEmail: string; companyName: string; companyWebsite?: string }) => {
-      return await apiRequest('/api/auth/verify-company-email', {
+      const response = await fetch('/api/auth/verify-company-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(data)
       });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to send verification email');
+      }
+      
+      return await response.json();
     },
     onSuccess: (data) => {
       toast({
